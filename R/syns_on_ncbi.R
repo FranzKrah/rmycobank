@@ -14,12 +14,13 @@
 #' 
 #' @examples
 #' synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus","Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda","Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus","Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus","Heterobasidion annosum f. macraulos")
-#' syns <- syns_on_ncbi(synonyms)
+#' gi <- syns_on_ncbi(synonyms)
 
 syns_on_ncbi <- function(synonyms) {
   if (!is.character(synonyms)) stop(" argument must be of class character ")
   require("taxize")
   res <- get_uid(synonyms)
-  res <- cbind.data.frame(synonyms, GI = as.numeric(res))
+  res <- cbind.data.frame(synonym = synonyms, GI = as.numeric(res))
+  res <- res[grep("\\d", res$GI),]
   return(res)
 }

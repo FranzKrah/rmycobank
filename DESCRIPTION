@@ -8,3 +8,4 @@ Maintainer: Franz-Sebastian Krah <f.krah@mailbox.org>
 Description: rmycobank is an interface to mycobank.org which is an on-line database, aimed as a service to the mycological and scientific community, run by the International Mycological Association. The package allows retrieving data from mycobank via their implemented webservices. The data is retrieved in XML format and then processed for direct unsage in R. 
 License: GPL (>= 2)
 Repository: GitHub
+Suggests: testthat
