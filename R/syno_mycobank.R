@@ -13,7 +13,7 @@
 #' @author Franz-Sebastian Krah
 #' 
 #' @examples
-syns <- syno_mycobank(taxon = "Heterobasidion annosum")
+#' syns <- syno_mycobank(taxon = "Heterobasidion annosum")
 
 syno_mycobank <- function(taxon){
   require("XML"); require("stringr")
