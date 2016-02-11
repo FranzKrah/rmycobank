@@ -19,7 +19,7 @@ Searches and downloads synonmys from the mycobank.org website for a given fungal
 The function searches all synonym entries on the MycoBank on-line database. The data may then be further processes, e.g. a search which of the synonmys are present at GenBank (syns_on_ncbi).
 }
 \examples{
-syns <- syno.mycobank("Heterobasidion annosum")
+syns <- syno_mycobank(taxon = "Heterobasidion annosum")
 }
 \author{
 Franz-Sebastian Krah

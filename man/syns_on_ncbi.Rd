@@ -20,7 +20,7 @@ The function searches which of the synonmys are present at GenBank. If you have 
 }
 \examples{
 synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus","Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda","Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus","Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus","Heterobasidion annosum f. macraulos")
-syns <- syns_on_ncbi(synonyms)
+gi <- syns_on_ncbi(synonyms)
 }
 \author{
 Franz-Sebastian Krah
