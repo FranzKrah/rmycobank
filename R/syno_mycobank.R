@@ -5,11 +5,15 @@
 #' @param taxon a \code{character} containing fungal species name
 #' 
 #' 
-#' @details The function searches all synonym entries on the MycoBank on-line database. The data may then be further processes, e.g. a search which of the synonmys are present at GenBank (syns_on_ncbi). 
-#' @details On mycobank the synonyms are devided into obligate (=) and facultative synonyms (≡). Obligate synonyms have 2 different materials, while facultative synonyms refer to the same material. 
+#' @details The function searches all synonym entries on the MycoBank on-line database. The data
+#' may then be further processes, e.g. a search which of the synonmys are present at GenBank
+#' (syns_on_ncbi). 
 #' 
+#' Mycobank devides synonyms into obligate (=) and facultative (≡) synonyms. Obligate
+#' synonyms have 2 different materials, while facultative synonyms refer to the same material. The
+#' output of this function produces two lists according to this definition. 
 #' 
-#' @return list of class \code{character}. 
+#' @return list with two vectors of class \code{character}
 #' 
 #' @author Franz-Sebastian Krah
 #' 
@@ -44,7 +48,3 @@ syno_mycobank <- function(taxon){
   syns <- list(obligate = unlist(obl), facultative = unlist(fac))
   return(syns)
 }
-
-
-
-

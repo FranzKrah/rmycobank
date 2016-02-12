@@ -12,8 +12,18 @@
 #' 
 #' @author Franz-Sebastian Krah
 #' 
-#' @examples
-#' synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus","Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda","Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus","Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus","Heterobasidion annosum f. macraulos")
+#' @examples 
+#' # Use the synonyms derived from mycobank (syno_mycobank)
+#' syns <- syno_mycobank(taxon = "Heterobasidion annosum")
+#' gis <- lapply(syns, syns_on_ncbi)
+#' gis
+#'
+#' # or any vector of synonyms
+#' synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus",
+#' "Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda",
+#' "Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus",
+#' "Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus",
+#' "Heterobasidion annosum f. macraulos")
 #' gi <- syns_on_ncbi(synonyms)
 
 syns_on_ncbi <- function(synonyms) {
@@ -21,6 +31,8 @@ syns_on_ncbi <- function(synonyms) {
   require("taxize")
   res <- get_uid(synonyms)
   res <- cbind.data.frame(synonym = synonyms, GI = as.numeric(res))
-  res <- res[grep("\\d", res$GI),]
+  if(length(grep("\\d", res$GI))==0){res <- NA}
+  else {res <- res[grep("\\d", res$GI),]
+  res$synonym <- as.character(res$synonym)}
   return(res)
 }

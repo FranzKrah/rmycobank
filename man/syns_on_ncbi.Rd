@@ -19,7 +19,17 @@ Searches which of the synonyms of an input species list are present on GenBank
 The function searches which of the synonmys are present at GenBank. If you have a species list e.g. from a field study and want to derive sequences from GenBank but only get a subset of the species; then you might ignore the synonyms.
 }
 \examples{
-synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus","Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda","Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus","Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus","Heterobasidion annosum f. macraulos")
+# Use the synonyms derived from mycobank (syno_mycobank)
+syns <- syno_mycobank(taxon = "Heterobasidion annosum")
+gis <- lapply(syns, syns_on_ncbi)
+gis
+
+# or any vector of synonyms
+synonyms <- c("Heterobasidion annosum", "Polyporus annosus","Polyporus subpileatus",
+"Polyporus scoticus","Polyporus makraulos","Polyporus macraulos","Trametes radiciperda",
+"Poria macraula","Poria macraula","Polyporus irregularis","Polystictoides fuscus",
+"Polyporus atramosus","Polyporus marginatoides","Polyporus atrannosus",
+"Heterobasidion annosum f. macraulos")
 gi <- syns_on_ncbi(synonyms)
 }
 \author{

@@ -10,13 +10,19 @@ syno_mycobank(taxon)
 \item{taxon}{a \code{character} containing fungal species name}
 }
 \value{
-list of class \code{character}.
+list with two vectors of class \code{character}
 }
 \description{
 Searches and downloads synonmys from the mycobank.org website for a given fungal species name
 }
 \details{
-The function searches all synonym entries on the MycoBank on-line database. The data may then be further processes, e.g. a search which of the synonmys are present at GenBank (syns_on_ncbi).
+The function searches all synonym entries on the MycoBank on-line database. The data
+may then be further processes, e.g. a search which of the synonmys are present at GenBank
+(syns_on_ncbi).
+
+Mycobank devides synonyms into obligate (=) and facultative (≡) synonyms. Obligate
+synonyms have 2 different materials, while facultative synonyms refer to the same material. The
+output of this function produces two lists according to this definition.
 }
 \examples{
 syns <- syno_mycobank(taxon = "Heterobasidion annosum")
