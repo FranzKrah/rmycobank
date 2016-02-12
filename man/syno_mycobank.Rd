@@ -10,7 +10,7 @@ syno_mycobank(taxon)
 \item{taxon}{a \code{character} containing fungal species name}
 }
 \value{
-vector of class \code{character}.
+list of class \code{character}.
 }
 \description{
 Searches and downloads synonmys from the mycobank.org website for a given fungal species name

@@ -6,9 +6,10 @@
 #' 
 #' 
 #' @details The function searches all synonym entries on the MycoBank on-line database. The data may then be further processes, e.g. a search which of the synonmys are present at GenBank (syns_on_ncbi). 
+#' @details On mycobank the synonyms are devided into obligate (=) and facultative synonyms (≡). Obligate synonyms have 2 different materials, while facultative synonyms refer to the same material. 
 #' 
 #' 
-#' @return vector of class \code{character}. 
+#' @return list of class \code{character}. 
 #' 
 #' @author Franz-Sebastian Krah
 #' 
@@ -23,18 +24,27 @@ syno_mycobank <- function(taxon){
     tax[1], "%20", tax[2], "%22", sep ="")
   # parse data from mycobank.org
   par <- xmlTreeParse(url, useInternal = TRUE)
+  # extract obligate and facultative synonyms
   syn <- getNodeSet(par, "//e4060")[1]
-  syn <- lapply(syn, function(x) strsplit(as.character(xmlValue(x)), "≡|="))
-  syn <- syn[[1]][[1]][!unlist(lapply(syn[[1]], nchar)) == 0]
+  syn <- strsplit(as.character(xmlValue(syn[[1]])), "\\n")
+  syn <- syn[[1]][!unlist(lapply(syn[[1]], nchar)) == 0]
+  obl <- syn[grep("=", syn)]; obl <- gsub("=", "", obl)
+  fac <- syn[grep("≡", syn)]; fac <- gsub("≡", "", fac)
   # extract species data
-  syn <- do.call(rbind, lapply(syn, word, start = 1, end = 4))
-  syn <- lapply(syn, function(x) {
-    if(!length(grep("var\\.|spec|sp\\.|ssp\\.|\\bf\\.", x))>0) { x <- word(x, 1, 2) }
-    else {x}
-  })
-  # clean step
-  syn <- do.call(rbind, syn)
-  syn <- c(taxon, syn)
-  return(syn)
+  syns_derive <- function(x) {
+    x <- do.call(rbind, lapply(x, word, start = 1, end = 4))
+    x <- lapply(x, function(x) {
+      if(!length(grep("var\\.|spec|sp\\.|ssp\\.|\\bf\\.", x))>0) { x <- word(x, 1, 2) }
+      else {x}
+    })
+    return(x)
+  }
+  obl <- syns_derive(obl)
+  fac <- syns_derive(fac)
+  syns <- list(obligate = unlist(obl), facultative = unlist(fac))
+  return(syns)
 }
+
+
+
 
