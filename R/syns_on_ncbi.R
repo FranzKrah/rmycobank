@@ -27,12 +27,17 @@
 #' gi <- syns_on_ncbi(synonyms)
 
 syns_on_ncbi <- function(synonyms) {
-  if (!is.character(synonyms)) stop(" argument must be of class character ")
-  require("taxize")
-  res <- get_uid(synonyms)
-  res <- cbind.data.frame(synonym = synonyms, GI = as.numeric(res))
-  if(length(grep("\\d", res$GI))==0){res <- NA}
-  else {res <- res[grep("\\d", res$GI),]
-  res$synonym <- as.character(res$synonym)}
+  if (is.null(synonyms)) warning("  argument not of class character ")
+  if (is.null(synonyms)) {res <- NA}
+  if (!is.null(synonyms)) {
+    require("taxize")
+    res <- get_uid(synonyms)
+    res <- cbind.data.frame(synonym = synonyms, GI = as.numeric(res))
+    if(length(grep("\\d", res$GI))==0){res <- NA}
+    else {res <- res[grep("\\d", res$GI),]
+    res$synonym <- as.character(res$synonym)}
+  }
   return(res)
 }
+
+s <- syns_on_ncbi(synonyms = NULL)

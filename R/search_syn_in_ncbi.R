@@ -15,6 +15,7 @@
 #' taxon <- "Friesia annosa"
 #' search_syn_in_ncbi(taxon = taxon)
 
+taxon <- "Velutarina_rufoolivacea"
 search_syn_in_ncbi <- function(taxon){
   message("... downloading synonyms from MycoBank ...")
   synonyms <- syno_mycobank(taxon = taxon)
