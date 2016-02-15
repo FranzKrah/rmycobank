@@ -15,11 +15,22 @@
 #' taxon <- "Friesia annosa"
 #' search_syn_in_ncbi(taxon = taxon)
 
-taxon <- "Velutarina_rufoolivacea"
-search_syn_in_ncbi <- function(taxon){
-  message("... downloading synonyms from MycoBank ...")
-  synonyms <- syno_mycobank(taxon = taxon)
-  res <- lapply(synonyms, syns_on_ncbi)
-  res <- do.call(rbind, res)
+search_syn_in_ncbi <- function(taxa){
+  require("foreach")
+  if(any(grep("_", taxon))==TRUE) taxon <- gsub("_", " ", taxon)
+  search_syn_in_ncbi_s <- function(taxon){
+    message("... downloading synonyms from MycoBank ...")
+    synonyms <- syno_mycobank(taxon = taxon)
+    res <- lapply(synonyms, syns_on_ncbi)
+    res <- do.call(rbind, res)
+    return(res)
+  }
+  if (length(taxa)==1){
+    res <- search_syn_in_ncbi_s(taxa)
+  }
+    if(length(taxa)>1){
+      res <- foreach(i = seq_along(taxa)) %do% search_syn_in_ncbi_s(taxa[i])
+    }
+  names(res) <- taxa
   return(res)
 }

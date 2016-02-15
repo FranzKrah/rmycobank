@@ -4,7 +4,7 @@
 \alias{search_syn_in_ncbi}
 \title{Searches for the synonym on GenBank}
 \usage{
-search_syn_in_ncbi(taxon)
+search_syn_in_ncbi(taxa)
 }
 \arguments{
 \item{taxon}{a \code{character} containing fungal species name}
