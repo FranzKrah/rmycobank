@@ -39,5 +39,3 @@ syns_on_ncbi <- function(synonyms) {
   }
   return(res)
 }
-
-s <- syns_on_ncbi(synonyms = NULL)
