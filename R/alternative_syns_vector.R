@@ -20,12 +20,15 @@
 
 alternative_syns_vector <- function(search_syn_in_ncbi_out){
   s = search_syn_in_ncbi_out
+  taxa <- names(s)
   # seperate obligate and facultative synonyms
   obl <- lapply(s, function(x) x[grep("obligate", rownames(x)), ])
   fac <- lapply(s, function(x) x[grep("facultative", rownames(x)), ])
   # choose either the original name if found on ncbi or a synonmy if found
   get_any <- function(syn_type, number){
     syn_any <- foreach(x = seq_along(taxa)) %do% {
+      if(length(grep("synonym", names(syn_type[[x]]))) == 0) 
+        {syn_type[[x]] <- data.frame(synonym = syn_type[[x]])}
       if((names(syn_type)[[x]] %in% syn_type[[x]]$synonym) == TRUE)
       {names(syn_type)[[x]]}
       else {syn_type[[x]]$synonym[number]}}
@@ -49,7 +52,8 @@ alternative_syns_vector <- function(search_syn_in_ncbi_out){
   alt <- data.frame(syns_fac = fac_alt$syns, syns_abl = abl_alt$syns)
   rownames(alt) <- rownames(fac_alt)
   alt$syns <- alt$syns_fac
-  alt$syns[is.na(alt$syns)] <- abl_alt$syns[is.na(alt$syns)]
   alt[] <- lapply(alt, as.character)
+  alt$syns[is.na(alt$syns)] <- as.character(abl_alt$syns[is.na(alt$syns)])
+  alt$syns[is.na(alt$syns)] <- as.character(rownames(alt)[is.na(alt$syns)])
   return(alt)
 }
