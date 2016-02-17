@@ -22,7 +22,8 @@ This function is motivated as a helper for producing an input for MEGAPTERA. MEG
 \examples{
 taxa <- c("Heterobasidion annosum","Schizopora paradoxa")
 s <- search_syn_in_ncbi(taxa)
-alternative_syns_vector(search_syn_in_ncbi_out = s)
+spec <- alternative_syns_vector(search_syn_in_ncbi_out = s)
+spec$syns
 }
 \author{
 Franz-Sebastian Krah

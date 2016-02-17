@@ -15,7 +15,7 @@
 #' taxon <- "Friesia annosa"
 #' search_syn_in_ncbi(taxon = taxon)
 
-search_syn_in_ncbi <- function(taxa){
+search_syn_in_ncbi <- function(taxon){
   require("foreach")
   if(any(grep("_", taxon))==TRUE) taxon <- gsub("_", " ", taxon)
   search_syn_in_ncbi_s <- function(taxon){
@@ -25,12 +25,12 @@ search_syn_in_ncbi <- function(taxa){
     res <- do.call(rbind, res)
     return(res)
   }
-  if (length(taxa)==1){
-    res <- search_syn_in_ncbi_s(taxa)
+  if (length(taxon)==1){
+    res <- search_syn_in_ncbi_s(taxon)
   }
-    if(length(taxa)>1){
-      res <- foreach(i = seq_along(taxa)) %do% search_syn_in_ncbi_s(taxa[i])
+    if(length(taxon)>1){
+      res <- foreach(i = seq_along(taxon)) %do% search_syn_in_ncbi_s(taxon[i])
     }
-  names(res) <- taxa
+  names(res) <- taxon
   return(res)
 }
